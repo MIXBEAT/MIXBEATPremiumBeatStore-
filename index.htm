@@ -180,11 +180,11 @@
         /* Main Beat Store Section */
         .beat-store-section {
             min-height: 100vh;
-            padding: 140px 50px 80px 50px;
+            padding: 120px 20px 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .section-title {
@@ -213,38 +213,40 @@
         .main-container {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
+            gap: 40px;
         }
 
-        /* Cassettes Container */
+        /* Cassettes Container - على اليسار */
         .cassettes-container {
-            flex: 1;
+            flex: 0 0 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 60px;
+            gap: 40px;
             padding: 20px;
+            position: relative;
         }
 
-        /* Beat Info Container */
+        /* Beat Info Container - على اليمين */
         .beat-info-display {
             flex: 1;
-            min-height: 500px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 20px;
+            min-height: 600px;
             position: relative;
         }
 
         /* Cassette Styles */
         .cassette {
-            width: 320px;
-            height: 210px;
+            width: 100%;
+            max-width: 380px;
+            height: 220px;
             background: linear-gradient(135deg, #1a1a1a, #333, #1a1a1a);
             border-radius: 15px;
             position: relative;
@@ -253,6 +255,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             border: 2px solid var(--metallic-gray);
             overflow: hidden;
+            z-index: 10;
         }
 
         .cassette:hover {
@@ -333,7 +336,7 @@
             100% { transform: rotate(0deg); }
         }
 
-        /* Play Button (instead of beat type) */
+        /* Play Button */
         .play-button-container {
             position: absolute;
             bottom: 15px;
@@ -369,29 +372,129 @@
             margin-right: 8px;
         }
 
-        /* Beat Info Display */
+        /* Beat Preview Info (المعلومات الصغيرة على الكاسيت) */
+        .beat-preview-info {
+            position: absolute;
+            top: 0;
+            right: -420px;
+            width: 400px;
+            background: rgba(26, 26, 26, 0.98);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--accent-red);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .beat-preview-info.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .preview-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .preview-details {
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(125, 125, 125, 0.3);
+        }
+
+        .preview-label {
+            color: var(--metallic-gray);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .preview-value {
+            color: var(--light-gray);
+            font-weight: 700;
+        }
+
+        .preview-value.tempo {
+            color: var(--accent-gold);
+        }
+
+        .preview-value.type {
+            color: var(--accent-red);
+        }
+
+        .preview-price {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .preview-buy-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--accent-red), #128C7E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .preview-buy-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(178, 230, 57, 0.4);
+            background: linear-gradient(90deg, #128C7E, var(--accent-red));
+        }
+
+        /* Beat Info Display (النافذة الكبيرة) */
         .beat-info {
             width: 100%;
-            max-width: 500px;
-            background: rgba(26, 26, 26, 0.95);
+            max-width: 600px;
+            background: rgba(26, 26, 26, 0.98);
             padding: 35px;
             border-radius: 15px;
             border: 2px solid var(--accent-red);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) translateY(20px);
+            transform: scale(0.9);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
+            position: absolute;
+            top: 0;
         }
 
         .beat-info.active {
             opacity: 1;
-            transform: translate(-50%, -50%) translateY(0);
+            transform: scale(1);
             pointer-events: all;
+            z-index: 20;
         }
 
         .beat-info-title {
@@ -500,48 +603,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Cassette Details Below */
-        .cassette-details {
-            display: flex;
-            justify-content: center;
-            gap: 80px;
-            margin-top: 60px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .cassette-detail {
-            width: 300px;
-            text-align: center;
-        }
-
-        .detail-beat-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .detail-tempo {
-            font-size: 1.2rem;
-            color: var(--accent-gold);
-            margin-bottom: 5px;
-        }
-
-        .detail-type {
-            font-size: 1rem;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .detail-producer {
-            font-size: 0.9rem;
-            color: var(--metallic-gray);
-            font-style: italic;
-        }
-
         /* Footer */
         .footer {
             background-color: #000;
@@ -633,41 +694,73 @@
             color: white;
         }
 
+        /* Mobile Info Box (للجوال) */
+        .mobile-beat-info {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.98);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--accent-red);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .mobile-beat-info.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-beat-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
             .beat-store-section {
-                padding: 140px 40px 80px 40px;
+                padding: 120px 40px 80px 40px;
             }
             
             .main-container {
-                flex-direction: column;
-                gap: 50px;
+                max-width: 1000px;
             }
             
-            .cassettes-container {
-                flex-direction: row;
-                gap: 40px;
-            }
-            
-            .beat-info-display {
-                min-height: 400px;
-                width: 100%;
+            .beat-preview-info {
+                right: -380px;
+                width: 360px;
             }
         }
 
         @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                gap: 60px;
+            }
+            
             .cassettes-container {
-                flex-wrap: wrap;
-                justify-content: center;
+                flex: none;
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
             }
             
-            .cassette {
-                width: 280px;
-                height: 180px;
+            .beat-preview-info {
+                display: none;
             }
             
-            .beat-info {
-                max-width: 90%;
+            .beat-info-display {
+                min-height: 500px;
             }
             
             .section-title {
@@ -695,7 +788,7 @@
             }
             
             .beat-store-section {
-                padding: 120px 30px 60px 30px;
+                padding: 110px 30px 60px 30px;
             }
             
             .section-title {
@@ -703,29 +796,30 @@
             }
             
             .cassette {
-                width: 250px;
-                height: 160px;
+                height: 200px;
+                max-width: 340px;
             }
             
             .cassettes-container {
                 gap: 30px;
             }
             
-            .cassette-details {
-                flex-direction: column;
-                align-items: center;
-                gap: 40px;
-                margin-top: 40px;
-            }
-            
             .footer {
                 padding: 40px 30px;
+            }
+            
+            .mobile-beat-info {
+                display: block;
+            }
+            
+            .beat-info {
+                display: none;
             }
         }
 
         @media (max-width: 600px) {
             .beat-store-section {
-                padding: 110px 20px 50px 20px;
+                padding: 100px 20px 50px 20px;
             }
             
             .section-title {
@@ -734,12 +828,8 @@
             
             .cassette {
                 width: 100%;
-                max-width: 300px;
-                height: 170px;
-            }
-            
-            .cassettes-container {
-                flex-direction: column;
+                max-width: 320px;
+                height: 180px;
             }
             
             .cd-container {
@@ -776,6 +866,10 @@
             .footer {
                 padding: 30px 20px;
             }
+            
+            .mobile-beat-title {
+                font-size: 1.3rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -792,16 +886,12 @@
                 font-size: 0.9rem;
             }
             
-            .detail-beat-name {
-                font-size: 1.3rem;
-            }
-            
-            .detail-tempo {
-                font-size: 1.1rem;
-            }
-            
             .beat-info {
                 padding: 20px;
+            }
+            
+            .mobile-beat-title {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -812,6 +902,32 @@
         <h3 class="notification-title">Redirecting to WhatsApp...</h3>
         <p class="notification-text">You will be redirected to WhatsApp to complete your purchase. Please wait a moment.</p>
         <button class="notification-close">Cancel</button>
+    </div>
+
+    <!-- Mobile Beat Info (للجوال) -->
+    <div id="mobileBeatInfo" class="mobile-beat-info">
+        <h3 class="mobile-beat-title" id="mobileBeatTitle">MARRAKESH</h3>
+        <div class="preview-details" id="mobileBeatDetails">
+            <div class="preview-item">
+                <span class="preview-label">Producer:</span>
+                <span class="preview-value">Dr Gerberto</span>
+            </div>
+            <div class="preview-item">
+                <span class="preview-label">Tempo:</span>
+                <span class="preview-value tempo">140 BPM</span>
+            </div>
+            <div class="preview-item">
+                <span class="preview-label">Type:</span>
+                <span class="preview-value type">Trap</span>
+            </div>
+            <div class="preview-item">
+                <span class="preview-label">Price:</span>
+                <span class="preview-value tempo">$20</span>
+            </div>
+        </div>
+        <a href="#" class="preview-buy-button" id="mobileBuyButton" target="_blank">
+            <i class="fab fa-whatsapp"></i> BUY NOW
+        </a>
     </div>
 
     <!-- Header with Logo -->
@@ -840,10 +956,10 @@
             <h2 class="section-title">PREMIUM BEATS</h2>
             
             <div class="main-container">
-                <!-- Cassettes Container -->
+                <!-- Cassettes Container - على اليسار -->
                 <div class="cassettes-container">
                     <!-- Cassette 1: 7OREIA -->
-                    <div class="cassette cassette-left" data-beat="7oreia">
+                    <div class="cassette" data-beat="7oreia">
                         <div class="cassette-label">7OREIA</div>
                         <div class="cassette-reels">
                             <div class="cassette-reel left"></div>
@@ -854,10 +970,36 @@
                                 <i class="fas fa-play"></i> PLAY
                             </a>
                         </div>
+                        <!-- Beat Preview Info -->
+                        <div class="beat-preview-info" id="preview-7oreia">
+                            <h3 class="preview-title">7OREIA</h3>
+                            <div class="preview-details">
+                                <div class="preview-item">
+                                    <span class="preview-label">Producer:</span>
+                                    <span class="preview-value">Dr Gerberto</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Tempo:</span>
+                                    <span class="preview-value tempo">115 BPM</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Type:</span>
+                                    <span class="preview-value type">Trap Sad</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Key:</span>
+                                    <span class="preview-value">G Minor</span>
+                                </div>
+                            </div>
+                            <div class="preview-price">$12</div>
+                            <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%207OREIA%20trap%20sad%20beat" class="preview-buy-button" target="_blank">
+                                <i class="fab fa-whatsapp"></i> BUY NOW
+                            </a>
+                        </div>
                     </div>
                     
-                    <!-- Cassette 2: Second Beat -->
-                    <div class="cassette cassette-center active" data-beat="second-beat">
+                    <!-- Cassette 2: MARRAKESH -->
+                    <div class="cassette active" data-beat="second-beat">
                         <div class="cassette-label">MARRAKESH</div>
                         <div class="cassette-reels">
                             <div class="cassette-reel left"></div>
@@ -868,11 +1010,37 @@
                                 <i class="fas fa-play"></i> PLAY
                             </a>
                         </div>
+                        <!-- Beat Preview Info -->
+                        <div class="beat-preview-info active" id="preview-second-beat">
+                            <h3 class="preview-title">MARRAKESH</h3>
+                            <div class="preview-details">
+                                <div class="preview-item">
+                                    <span class="preview-label">Producer:</span>
+                                    <span class="preview-value">Dr Gerberto</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Tempo:</span>
+                                    <span class="preview-value tempo">140 BPM</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Type:</span>
+                                    <span class="preview-value type">Trap</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Key:</span>
+                                    <span class="preview-value">D# Minor</span>
+                                </div>
+                            </div>
+                            <div class="preview-price">$20</div>
+                            <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20MARRAKESH%20trap%20beat" class="preview-buy-button" target="_blank">
+                                <i class="fab fa-whatsapp"></i> BUY NOW
+                            </a>
+                        </div>
                     </div>
                     
-                    <!-- Cassette 3: DDDDD -->
-                    <div class="cassette cassette-right" data-beat="ddddd">
-                        <div class="cassette-label">dee</div>
+                    <!-- Cassette 3: DEE -->
+                    <div class="cassette" data-beat="ddddd">
+                        <div class="cassette-label">DEE</div>
                         <div class="cassette-reels">
                             <div class="cassette-reel left"></div>
                             <div class="cassette-reel right"></div>
@@ -882,13 +1050,39 @@
                                 <i class="fas fa-play"></i> PLAY
                             </a>
                         </div>
+                        <!-- Beat Preview Info -->
+                        <div class="beat-preview-info" id="preview-ddddd">
+                            <h3 class="preview-title">DEE</h3>
+                            <div class="preview-details">
+                                <div class="preview-item">
+                                    <span class="preview-label">Producer:</span>
+                                    <span class="preview-value">Dr Gerberto</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Tempo:</span>
+                                    <span class="preview-value tempo">140 BPM</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Type:</span>
+                                    <span class="preview-value type">Trap Beat</span>
+                                </div>
+                                <div class="preview-item">
+                                    <span class="preview-label">Key:</span>
+                                    <span class="preview-value">F Minor</span>
+                                </div>
+                            </div>
+                            <div class="preview-price">$11</div>
+                            <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20DEE%20trap%20beat" class="preview-buy-button" target="_blank">
+                                <i class="fab fa-whatsapp"></i> BUY NOW
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Beat Info Display -->
+                <!-- Beat Info Display - على اليمين (للكمبيوتر فقط) -->
                 <div class="beat-info-display">
                     <!-- Beat Info for 7OREIA -->
-                    <div class="beat-info active" id="beat-info-7oreia">
+                    <div class="beat-info" id="beat-info-7oreia">
                         <h3 class="beat-info-title">7OREIA</h3>
                         <div class="beat-info-details">
                             <div class="beat-info-item">
@@ -901,7 +1095,7 @@
                             </div>
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Type:</span>
-                                <span class="beat-info-value type">trap sad Beat</span>
+                                <span class="beat-info-value type">Trap Sad Beat</span>
                             </div>
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Key:</span>
@@ -909,17 +1103,17 @@
                             </div>
                         </div>
                         <p class="beat-description">
-                            
+                            A melancholic trap beat with emotional melodies and hard-hitting 808s. Perfect for introspective lyrics and moody vibes.
                         </p>
                         <div class="beat-price">$12</div>
-                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%207OREIA%20drill%20beat" class="cinematic-buy-button" target="_blank">
+                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%207OREIA%20trap%20sad%20beat" class="cinematic-buy-button" target="_blank">
                             <i class="fab fa-whatsapp"></i> BUY ON WHATSAPP
                         </a>
                     </div>
                     
-                    <!-- Beat Info for Urban Flow -->
-                    <div class="beat-info" id="beat-info-second-beat">
-                        <h3 class="beat-info-title">MARRAKESH </h3>
+                    <!-- Beat Info for MARRAKESH -->
+                    <div class="beat-info active" id="beat-info-second-beat">
+                        <h3 class="beat-info-title">MARRAKESH</h3>
                         <div class="beat-info-details">
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Producer:</span>
@@ -931,25 +1125,25 @@
                             </div>
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Type:</span>
-                                <span class="beat-info-value type">trap</span>
+                                <span class="beat-info-value type">Trap</span>
                             </div>
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Key:</span>
-                                <span class="beat-info-value">d# Minor</span>
+                                <span class="beat-info-value">D# Minor</span>
                             </div>
                         </div>
                         <p class="beat-description">
-                            
+                            An energetic trap beat with exotic melodies and powerful bass. Inspired by Moroccan vibes with modern trap elements.
                         </p>
                         <div class="beat-price">$20</div>
-                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20URBAN%20FLOW%20hip%20hop%20beat" class="cinematic-buy-button" target="_blank">
+                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20MARRAKESH%20trap%20beat" class="cinematic-buy-button" target="_blank">
                             <i class="fab fa-whatsapp"></i> BUY ON WHATSAPP
                         </a>
                     </div>
                     
-                    <!-- Beat Info for DDDDD -->
+                    <!-- Beat Info for DEE -->
                     <div class="beat-info" id="beat-info-ddddd">
-                        <h3 class="beat-info-title">dee</h3>
+                        <h3 class="beat-info-title">DEE</h3>
                         <div class="beat-info-details">
                             <div class="beat-info-item">
                                 <span class="beat-info-label">Producer:</span>
@@ -969,15 +1163,13 @@
                             </div>
                         </div>
                         <p class="beat-description">
-
+                            A dark and atmospheric trap beat with deep 808s and haunting melodies. Ideal for aggressive flows and night vibes.
                         </p>
                         <div class="beat-price">$11</div>
-                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20DDDDD%20trap%20beat" class="cinematic-buy-button" target="_blank">
+                        <a href="https://wa.me/201152830940?text=Hi!%20I'm%20interested%20in%20purchasing%20the%20DEE%20trap%20beat" class="cinematic-buy-button" target="_blank">
                             <i class="fab fa-whatsapp"></i> BUY ON WHATSAPP
                         </a>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </section>
@@ -1005,6 +1197,14 @@
             const notificationClose = document.querySelector('.notification-close');
             const cassettes = document.querySelectorAll('.cassette');
             const beatInfos = document.querySelectorAll('.beat-info');
+            const previewInfos = document.querySelectorAll('.beat-preview-info');
+            const mobileBeatInfo = document.getElementById('mobileBeatInfo');
+            const mobileBeatTitle = document.getElementById('mobileBeatTitle');
+            const mobileBeatDetails = document.getElementById('mobileBeatDetails');
+            const mobileBuyButton = document.getElementById('mobileBuyButton');
+            
+            // التحقق إذا كان المستخدم على جهاز محمول
+            const isMobile = window.innerWidth <= 768;
             
             // Show intro for 4 seconds then transition to main content
             setTimeout(() => {
@@ -1048,51 +1248,134 @@
                 });
             });
             
-            // Cassette hover functionality
-            cassettes.forEach(cassette => {
-                cassette.addEventListener('mouseenter', function() {
-                    // Remove active class from all cassettes
-                    cassettes.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to current cassette
-                    this.classList.add('active');
-                    
-                    // Get beat ID
-                    const beatId = this.getAttribute('data-beat');
-                    
-                    // Hide all beat info
-                    beatInfos.forEach(info => {
-                        info.classList.remove('active');
+            // Cassette hover functionality for desktop
+            if (!isMobile) {
+                cassettes.forEach(cassette => {
+                    cassette.addEventListener('mouseenter', function() {
+                        // Remove active class from all cassettes
+                        cassettes.forEach(c => c.classList.remove('active'));
+                        previewInfos.forEach(info => info.classList.remove('active'));
+                        beatInfos.forEach(info => info.classList.remove('active'));
+                        
+                        // Add active class to current cassette
+                        this.classList.add('active');
+                        
+                        // Get beat ID
+                        const beatId = this.getAttribute('data-beat');
+                        
+                        // Show preview info
+                        const previewInfo = document.getElementById(`preview-${beatId}`);
+                        if (previewInfo) {
+                            previewInfo.classList.add('active');
+                        }
+                        
+                        // Show full info in right panel
+                        const beatInfo = document.getElementById(`beat-info-${beatId}`);
+                        if (beatInfo) {
+                            setTimeout(() => {
+                                beatInfo.classList.add('active');
+                            }, 100);
+                        }
                     });
-                    
-                    // Show corresponding beat info
-                    const beatInfo = document.getElementById(`beat-info-${beatId}`);
-                    if (beatInfo) {
-                        setTimeout(() => {
-                            beatInfo.classList.add('active');
-                        }, 100);
+                });
+            }
+            
+            // Cassette click/touch functionality for mobile
+            if (isMobile) {
+                cassettes.forEach(cassette => {
+                    cassette.addEventListener('click', function() {
+                        // Remove active class from all cassettes
+                        cassettes.forEach(c => c.classList.remove('active'));
+                        
+                        // Add active class to current cassette
+                        this.classList.add('active');
+                        
+                        // Get beat ID
+                        const beatId = this.getAttribute('data-beat');
+                        
+                        // Update mobile beat info
+                        updateMobileBeatInfo(beatId);
+                        
+                        // Show mobile beat info
+                        mobileBeatInfo.classList.add('active');
+                    });
+                });
+                
+                // Hide mobile beat info when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileBeatInfo.contains(e.target) && !e.target.closest('.cassette')) {
+                        mobileBeatInfo.classList.remove('active');
                     }
                 });
-            });
-            
-            // Keep center cassette active by default
-            const centerCassette = document.querySelector('.cassette-center');
-            if (centerCassette) {
-                centerCassette.classList.add('active');
+                
+                // Update mobile beat info function
+                function updateMobileBeatInfo(beatId) {
+                    const beatData = {
+                        '7oreia': {
+                            title: '7OREIA',
+                            producer: 'Dr Gerberto',
+                            tempo: '115 BPM',
+                            type: 'Trap Sad',
+                            price: '$12',
+                            link: 'https://wa.me/201152830940?text=Hi!%20I\'m%20interested%20in%20purchasing%20the%207OREIA%20trap%20sad%20beat'
+                        },
+                        'second-beat': {
+                            title: 'MARRAKESH',
+                            producer: 'Dr Gerberto',
+                            tempo: '140 BPM',
+                            type: 'Trap',
+                            price: '$20',
+                            link: 'https://wa.me/201152830940?text=Hi!%20I\'m%20interested%20in%20purchasing%20the%20MARRAKESH%20trap%20beat'
+                        },
+                        'ddddd': {
+                            title: 'DEE',
+                            producer: 'Dr Gerberto',
+                            tempo: '140 BPM',
+                            type: 'Trap Beat',
+                            price: '$11',
+                            link: 'https://wa.me/201152830940?text=Hi!%20I\'m%20interested%20in%20purchasing%20the%20DEE%20trap%20beat'
+                        }
+                    };
+                    
+                    if (beatData[beatId]) {
+                        const data = beatData[beatId];
+                        mobileBeatTitle.textContent = data.title;
+                        mobileBeatDetails.innerHTML = `
+                            <div class="preview-item">
+                                <span class="preview-label">Producer:</span>
+                                <span class="preview-value">${data.producer}</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">Tempo:</span>
+                                <span class="preview-value tempo">${data.tempo}</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">Type:</span>
+                                <span class="preview-value type">${data.type}</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">Price:</span>
+                                <span class="preview-value tempo">${data.price}</span>
+                            </div>
+                        `;
+                        mobileBuyButton.href = data.link;
+                    }
+                }
             }
             
             // WhatsApp purchase button functionality
-            const buyButtons = document.querySelectorAll('.cinematic-buy-button');
+            const buyButtons = document.querySelectorAll('.cinematic-buy-button, .preview-buy-button');
             buyButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    // Show cinematic notification
-                    cinematicNotification.classList.add('active');
-                    
-                    // Wait 2 seconds then redirect
-                    setTimeout(() => {
-                        // The link already opens in new tab, so we don't need to redirect
-                        cinematicNotification.classList.remove('active');
-                    }, 2000);
+                    // Show cinematic notification only on desktop
+                    if (!isMobile) {
+                        cinematicNotification.classList.add('active');
+                        
+                        // Wait 2 seconds then redirect
+                        setTimeout(() => {
+                            cinematicNotification.classList.remove('active');
+                        }, 2000);
+                    }
                 });
             });
             
@@ -1101,94 +1384,57 @@
                 cinematicNotification.classList.remove('active');
             });
             
-            // Add interactive effects to cassettes
-            cassettes.forEach(cassette => {
-                cassette.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
+            // Add interactive effects to cassettes for desktop
+            if (!isMobile) {
+                cassettes.forEach(cassette => {
+                    cassette.addEventListener('mousemove', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateY = (x - centerX) / 25;
+                        const rotateX = (centerY - y) / 25;
+                        
+                        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                    });
                     
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateY = (x - centerX) / 25;
-                    const rotateX = (centerY - y) / 25;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                    cassette.addEventListener('mouseleave', function() {
+                        if (!this.classList.contains('active')) {
+                            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                        } else {
+                            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)';
+                        }
+                    });
                 });
-                
-                cassette.addEventListener('mouseleave', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-                    } else {
-                        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)';
-                    }
-                });
-            });
-            
-            // Add keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === '1' || e.key === '2' || e.key === '3') {
-                    const index = parseInt(e.key) - 1;
-                    
-                    if (cassettes[index]) {
-                        // Simulate hover on selected cassette
-                        cassettes[index].dispatchEvent(new Event('mouseenter'));
-                    }
-                }
-            });
-            
-            // Auto cycle through cassettes (optional)
-            let currentCassetteIndex = 0;
-            function autoCycleCassettes() {
-                // Remove active class from all
-                cassettes.forEach(c => c.classList.remove('active'));
-                beatInfos.forEach(info => info.classList.remove('active'));
-                
-                // Add active to current
-                cassettes[currentCassetteIndex].classList.add('active');
-                const beatId = cassettes[currentCassetteIndex].getAttribute('data-beat');
-                const beatInfo = document.getElementById(`beat-info-${beatId}`);
-                if (beatInfo) {
-                    beatInfo.classList.add('active');
-                }
-                
-                // Move to next cassette
-                currentCassetteIndex = (currentCassetteIndex + 1) % cassettes.length;
-                
-                // Repeat every 8 seconds
-                setTimeout(autoCycleCassettes, 8000);
             }
             
-            // Start auto cycle after 10 seconds of inactivity
-            let userActive = true;
-            let inactivityTimer;
-            
-            function resetInactivityTimer() {
-                userActive = true;
-                clearTimeout(inactivityTimer);
-                inactivityTimer = setTimeout(() => {
-                    userActive = false;
-                    autoCycleCassettes();
-                }, 10000); // 10 seconds of inactivity
+            // Add keyboard navigation for desktop
+            if (!isMobile) {
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === '1' || e.key === '2' || e.key === '3') {
+                        const index = parseInt(e.key) - 1;
+                        
+                        if (cassettes[index]) {
+                            // Simulate hover on selected cassette
+                            cassettes[index].dispatchEvent(new Event('mouseenter'));
+                        }
+                    }
+                });
             }
-            
-            // Track user activity
-            document.addEventListener('mousemove', resetInactivityTimer);
-            document.addEventListener('keydown', resetInactivityTimer);
-            document.addEventListener('click', resetInactivityTimer);
-            
-            // Initialize timer
-            resetInactivityTimer();
             
             // Handle window resize for responsive behavior
             window.addEventListener('resize', function() {
                 // Reset transforms on resize
-                cassettes.forEach(cassette => {
-                    if (!cassette.classList.contains('active')) {
-                        cassette.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-                    }
-                });
+                if (!isMobile) {
+                    cassettes.forEach(cassette => {
+                        if (!cassette.classList.contains('active')) {
+                            cassette.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                        }
+                    });
+                }
             });
         });
     </script>
